@@ -1,0 +1,61 @@
+
+def findLetter(board, letter):
+    letter = letter.upper()
+
+    if letter == "Z":
+        letter = "Y"
+
+    for row in range(len(board)):
+        for column in range(len(board[row])):
+            if board[row][column] == letter:
+                return row, column
+
+
+def encrypt(message, board):
+    encrypted = ""
+
+    for letter in message.upper():
+        if letter == " ":
+            continue
+
+        if letter == "Z":
+            letter = "Y"
+
+        row, column = findLetter(board, letter)
+        encrypted = encrypted + str(row) + str(column) + " "
+
+    return encrypted.strip()
+
+
+def decrypt(message, board):
+    numbers = message.split()
+    decrypted = ""
+
+    for number in numbers:
+        row = int(number[0])
+        column = int(number[1])
+
+        decrypted = decrypted + board[row][column]
+
+    return decrypted
+
+
+def main():
+    board = [
+        ["A", "B", "C", "D", "E"],
+        ["F", "G", "H", "I", "J"],
+        ["K", "L", "M", "N", "O"],
+        ["P", "Q", "R", "S", "T"],
+        ["U", "V", "W", "X", "Y"]
+    ]
+
+    message = input("Enter a message: ")
+
+    encrypted = encrypt(message, board)
+    decrypted = decrypt(encrypted, board)
+
+    print("Encrypted message:", encrypted)
+    print("Decrypted message:", decrypted)
+
+
+main()
