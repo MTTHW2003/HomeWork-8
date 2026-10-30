@@ -1,0 +1,44 @@
+
+def encipher(message, radius):
+    while len(message) % radius != 0:
+        message = message + "X"
+
+    columns = len(message) // radius
+    encrypted = ""
+
+    for column in range(columns):
+        for row in range(radius):
+            position = row * columns + column
+            encrypted = encrypted + message[position]
+
+    return encrypted
+
+
+def decipher(message, radius):
+    columns = len(message) // radius
+    decrypted = ""
+
+    for row in range(radius):
+        for column in range(columns):
+            position = column * radius + row
+            decrypted = decrypted + message[position]
+
+    return decrypted
+
+
+def main():
+    message = input("Enter a message: ").upper().replace(" ", "")
+    radius = int(input("Enter the radius: "))
+
+    if radius <= 0:
+        print("Radius must be greater than zero.")
+        return
+
+    encrypted = encipher(message, radius)
+    decrypted = decipher(encrypted, radius)
+
+    print("Encrypted message:", encrypted)
+    print("Decrypted message:", decrypted)
+
+
+main()
