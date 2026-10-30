@@ -1,0 +1,58 @@
+
+def createAlphabet(keyword):
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    newAlphabet = ""
+
+    for letter in keyword.upper():
+        if letter in alphabet and letter not in newAlphabet:
+            newAlphabet = newAlphabet + letter
+
+    for letter in alphabet:
+        if letter not in newAlphabet:
+            newAlphabet = newAlphabet + letter
+
+    return newAlphabet
+
+
+def encode(message, keyword):
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    cipherAlphabet = createAlphabet(keyword)
+    encrypted = ""
+
+    for letter in message.upper():
+        if letter in alphabet:
+            position = alphabet.index(letter)
+            encrypted = encrypted + cipherAlphabet[position]
+        else:
+            encrypted = encrypted + letter
+
+    return encrypted
+
+
+def decode(message, keyword):
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    cipherAlphabet = createAlphabet(keyword)
+    decrypted = ""
+
+    for letter in message.upper():
+        if letter in cipherAlphabet:
+            position = cipherAlphabet.index(letter)
+            decrypted = decrypted + alphabet[position]
+        else:
+            decrypted = decrypted + letter
+
+    return decrypted
+
+
+def main():
+    keyword = input("Enter a keyword: ")
+    message = input("Enter a message: ")
+
+    encrypted = encode(message, keyword)
+    decrypted = decode(encrypted, keyword)
+
+    print("Encrypted message:", encrypted)
+    print("Decrypted message:", decrypted)
+
+
+main()
