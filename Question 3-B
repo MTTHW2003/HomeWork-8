@@ -1,0 +1,47 @@
+
+def encode(message, date):
+    shifts = date.replace("/", "")
+    encrypted = ""
+
+    for i in range(len(message)):
+        shift = int(shifts[i % len(shifts)])
+        letter = message[i]
+
+        if letter.isalpha():
+            new_letter = chr((ord(letter) - ord('A') + shift) % 26 + ord('A'))
+            encrypted = encrypted + new_letter
+        else:
+            encrypted = encrypted + letter
+
+    return encrypted
+
+
+def decode(message, date):
+    shifts = date.replace("/", "")
+    decrypted = ""
+
+    for i in range(len(message)):
+        shift = int(shifts[i % len(shifts)])
+        letter = message[i]
+
+        if letter.isalpha():
+            new_letter = chr((ord(letter) - ord('A') - shift) % 26 + ord('A'))
+            decrypted = decrypted + new_letter
+        else:
+            decrypted = decrypted + letter
+
+    return decrypted
+
+
+def main():
+    message = input("Enter a message: ").upper()
+    date = input("Enter the agreed date (M/D/YY): ")
+
+    encrypted = encode(message, date)
+    decrypted = decode(encrypted, date)
+
+    print("Encrypted message:", encrypted)
+    print("Decrypted message:", decrypted)
+
+
+main()
